@@ -32,7 +32,7 @@
                     <mxGeometry x="490" y="280" width="10" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="13" value="on-premise 想定" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-                    <mxGeometry x="200" y="210" width="100" height="30" as="geometry"/>
+                    <mxGeometry x="120" y="210" width="100" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="14" value="Azure 想定" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="520" y="210" width="70" height="30" as="geometry"/>
@@ -70,7 +70,7 @@
                 <mxCell id="26" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;" parent="1" vertex="1">
                     <mxGeometry x="262.99" y="300" width="43.13" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="27" value="ADDS&lt;div&gt;VM&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                <mxCell id="27" value="旧 FileServer 想定&lt;div&gt;VM&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="224.56" y="340" width="120" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="28" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/storage/Storage_Sync_Services.svg;" parent="1" vertex="1">
@@ -79,10 +79,10 @@
                 <mxCell id="29" value="Azure FIles" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="550" y="340" width="80" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="30" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Disks.svg;" vertex="1" parent="1">
+                <mxCell id="30" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Disks.svg;" parent="1" vertex="1">
                     <mxGeometry x="403" y="290" width="20.36" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="31" value="共有用&lt;div&gt;追加ディスク&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="31" value="共有用&lt;div&gt;追加ディスク&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="372" y="260" width="84" height="30" as="geometry"/>
                 </mxCell>
             </root>
