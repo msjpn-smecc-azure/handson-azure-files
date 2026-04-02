@@ -249,6 +249,42 @@
             }
         },
         {
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('VNet_Onpremises_Name'), '/onpre-to-cloud')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Onpremises_Name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Cloud_Name'))]"
+            ],
+            "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Cloud_Name'))]"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(parameters('VNet_Cloud_Name'), '/cloud-to-onpre')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Cloud_Name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Onpremises_Name'))]"
+            ],
+            "properties": {
+                "allowVirtualNetworkAccess": true,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "remoteVirtualNetwork": {
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('VNet_Onpremises_Name'))]"
+                }
+            }
+        },
+        {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2022-03-01",
             "name": "[parameters('VM_Client_Name')]",
