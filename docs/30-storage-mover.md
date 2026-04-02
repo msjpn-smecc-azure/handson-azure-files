@@ -10,7 +10,7 @@
 #### 🗒️ 目次
 
 
-## Azure Storage Mover リソースの作成
+## 移行作業のログ保管ストレージ作成
 
 移行ログ保存用の Log Analytics ワークスペース を用意
 
@@ -24,7 +24,7 @@
 
         - サブスクリプション: (ハンズオン用のもの)
         - リソースグループ: (ハンズオン用のもの)
-        - 名前: `files-hol-log` (任意)
+        - 名前: `handson-asm-log` (任意)
         - リージョン: `Japan East`
     
     1. タグ
@@ -35,6 +35,8 @@
 
         内容を確認して「作成」
 
+
+## Azure Storage Mover リソースの作成
 
 Azure Storage Mover のリソースを作成
 
@@ -48,13 +50,13 @@ Azure Storage Mover のリソースを作成
 
         - サブスクリプション: (ハンズオン用のもの)
         - リソースグループ: (ハンズオン用のもの)
-        - 名前: `files-hol-sm` (任意)
+        - 名前: `handson-asm` (任意)
         - リージョン: `West US3`
     
     1. 監視
 
         - コピーログを有効: ☑️
-        - Log Analytics ワークスペース: `files-hol-log` (先ほど作成した Log Analytics ワークスペース)
+        - Log Analytics ワークスペース: `handson-asm-log` (先ほど作成した Log Analytics ワークスペース)
 
     1. タグ
 
@@ -88,11 +90,11 @@ Azure Storage Mover のリソースを作成
 > この手順はハンズオンや検証用途として実施してください。
 > 本番利用では、ソースに近いオンプレミスまたはサポート対象の Hyper-V / VMware 環境へエージェントを配置する構成を推奨します。
 
-1. Azure ポータル から ADDS VM に接続
+1. Azure ポータル から On-premises File Server VM に接続
 
 1. VM内のブラウザで Storage Mover エージェント のダウンロードページを開き、 Hyper-V のイメージをダウンロード
 
-    - https://aka.ms/StorageMover/agent
+    - https://www.microsoft.com/en-us/download/details.aspx?id=104590
 
 1. ダウンロードした zip ファイルを展開し、Storage Mover エージェント の VHD を任意のフォルダーに配置
 
@@ -118,8 +120,10 @@ Azure Storage Mover のリソースを作成
     
 1. 作成したエージェント を右クリック、[Settings] を開く
 
-    1. [Processor] を選択し、プロセッサ数を最低 `4` コアに設定
-    1. [Integration Services] を選択し、 `Guest services
+    以下の修正をして「OK」
+
+    - Processor: プロセッサ数を最低 `4` コアに設定
+    - Integration Services: `Guest services` を有効化
 
 
 ## Storage Mover エージェントを登録
@@ -157,12 +161,12 @@ Azure Storage Mover のリソースを作成
     - Tenant ID: (ハンズオン用のもの)
     - Subscription ID: (ハンズオン用のもの)
     - Resource group name: (ハンズオン用のもの)
-    - Storage mover resource name: `files-hol-sm` (作成済のもの)
-    - Agent name: `files-hol-sma` (任意)
+    - Storage mover resource name: `handson-asm` (作成済のもの)
+    - Agent name: `handson-asm-agent` (任意)
 
     登録途中で表示される `https://microsoft.com/devicelogin` にアクセスし、表示されたコードでサインインします。
 
-1. Azure ポータルで Storage Mover リソースを開き、「Registered agents」に作成したエージェントが表示されることを確認
+1. Azure ポータルで Storage Mover リソースを開き、[リソース管理]-[登録済みエージェント] に作成したエージェントが表示されることを確認
 
 
 ## キーコンテナーを作成
@@ -179,7 +183,7 @@ Azure Storage Mover のリソースを作成
 
         - サブスクリプション: (ハンズオン用のもの)
         - リソースグループ: (ハンズオン用のもの)
-        - 名前: `files-hol-kv` (任意)
+        - 名前: `handson-kv` (任意)
         - リージョン: `Japan East`
         - 価格レベル: `Standard`
         - 回復オプション
@@ -212,7 +216,7 @@ Azure Storage Mover のリソースを作成
 
 1. 「ロールの割り当ての追加」を選択し、以下の情報を入力してエージェントにアクセス権を付与
 
-    - ロール: `キーコンテナーシークレット責任者` (`Key Vault Secrets Officer`)
+    - ロール: `キー コンテナー シークレット責任者` (`Key Vault Secrets Officer`)
     - メンバー: `ユーザー、グループ、またはサービスプリンシパルを選択`
     - メンバーの選択: (自分自身)
 
@@ -236,7 +240,7 @@ Azure Storage Mover のリソースを作成
     - 有効: `はい`
 
 
-## エンドポイントを作成
+## ソースエンドポイントを作成
 
 移行元のソースエンドポイントと、移行先のターゲットエンドポイントを作成します。
 
@@ -247,9 +251,9 @@ Azure Storage Mover のリソースを作成
 1. ソースエンドポイントを作成
 
     - ソースの種類: `SMB`
-    - ホスト名またはIP: `10.1.0.6` (ファイル共有サーバーのプライベートIPアドレス)
+    - ホスト名またはIP: `10.1.0.5` (ファイル共有サーバーのプライベートIPアドレス)
     - 共有名: `share` (ファイル共有サーバー 上の 共有フォルダー の名前)
-    - キーコンテナー: `files-hol-kv` (事前に作成した Key Vault)
+    - キーコンテナー: `handson-kv` (事前に作成した Key Vault)
     - ユーザー名のシークレット:
         - `ユーザー名シークレットを選択する`
         - `onpremise-fileserver-username` (事前に作成したユーザー名のシークレット)
@@ -278,7 +282,7 @@ Azure Storage Mover のリソースを作成
 
 1. 「プロジェクトの作成」を選択し、以下の情報を入力してプロジェクトを作成
 
-    - 名前: `files-hol-project` (任意)
+    - 名前: `handson-asm-project` (任意)
     - 説明: (任意)
 
 1. 作成したプロジェクトを開き、「ジョブの作成」を選択
@@ -287,10 +291,10 @@ Azure Storage Mover のリソースを作成
 
     1. 基本
 
-        - 名前: `files-hol-migration` (任意)
+        - 名前: `handson-asm-migration` (任意)
         - 説明: (任意)
         - 移行の種類: `オンプレミスからクラウドへ`
-        - 登録済みエージェント: `files-hol-sma` (事前に登録したエージェント)
+        - 登録済みエージェント: `handson-asm-agent` (事前に登録したエージェント)
 
     1. ソース
 
@@ -319,14 +323,15 @@ Azure Storage Mover のリソースを作成
     「開始」を選択してジョブを開始
 
 
-## 参考
+## ファイル移行の確認
 
-- Azure Storage Mover overview
-    - https://learn.microsoft.com/azure/storage-mover/service-overview
-- Plan a successful Azure Storage Mover deployment
-    - https://learn.microsoft.com/azure/storage-mover/deployment-planning
-- Deploy an Azure Storage Mover agent
-    - https://learn.microsoft.com/azure/storage-mover/agent-deploy
-- How to register an Azure Storage Mover agent
-    - https://learn.microsoft.com/azure/storage-mover/agent-register
+1. Azure ポータルで Storage Mover リソースを開き、[移行の計画と実行]-[ジョブ] を開く
+
+1. ジョブのステータスを確認し、移行が正常に完了していることを確認
+
+1. Azure ポータルで 作成した Azure Storage アカウントを開き、Azure Files 共有内にファイルが移行されていることを確認
+
+> [!NOTE]  
+> Storage Account へ直接移行した場合、 Storage Sync Service で検知がうまくできない場合があります。
+> File Sync Server へ入って強制的に同期させることで解決する場合があります。
 

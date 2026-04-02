@@ -23,7 +23,7 @@
     - Storage Mover Agent の Hyper-V を動作させる
     - 仮想化機能が使えるSKUを選択する必要がある (例: Dv5、Ev5 シリーズなど)
 -->
-- On-premise File Share VM
+- On-premises File Server VM
     - Windows Server 2025 Datacenter
     - オンプレミスのファイルサーバー相当。
       以下の２機能を同梱。
@@ -32,6 +32,10 @@
     - 仮想化機能が使えるSKUを選択する必要がある (例: Dv5、Ev5 シリーズなど)
 - File Sync Server VM
     - Windows Server 2025 Datacenter
+    - オンプレミスに配置する File Sync Server 相当。
+      以下の2機能を同梱。
+        - ファイルサーバー
+        - File Sync Agent
     - Dドライブ など 追加ドライブ をつける(=File Sync の同期用ドライブ。OSドライブ以外が必要)
 
 <!-- 
@@ -147,11 +151,15 @@ ADDSの初期設定
 
 ### 共有フォルダの作成
 
-1. 任意の場所に共有用のフォルダを作成
+1. 任意の場所に共有用のフォルダを作成、フォルダ内に適当なファイルを作成しておく
 
-    例： `C:\share`
+    例：
+    ```
+    D:\share
+        └─ sample_from_onpre.txt
+    ```
 
-1. Server Manager を開き、[File and Storage Services]-[Shares] を開く
+1. Server Manager を開き、左メニュー [File and Storage Services]-[Shares] を開く
 
 1. 左側「Shares」の右にあるメニューから [Tasks]-[New Share] を選択
 
@@ -163,7 +171,7 @@ ADDSの初期設定
 
     1. Specify the share location
 
-        - `Type a custom path` を選択して、先ほど作成した共有用のフォルダを指定 (例: `C:\share`)
+        - `Type a custom path` を選択して、先ほど作成した共有用のフォルダを指定 (例: `D:\share`)
 
     1. Specify share name
 
@@ -173,9 +181,9 @@ ADDSの初期設定
 
         そのまま「Next」
 
-        - `[ ]` Enable access-based enumeration
-        - `[x]` Allow caching of share
-        - `[ ]` Encrypt data access
+        - [ ] Enable access-based enumeration
+        - [x] Allow caching of share
+        - [ ] Encrypt data access
 
     1. Permissions
 
@@ -380,3 +388,19 @@ ADDSの初期設定
     - `168.63.129.16` (Azure DNS のIPアドレス)
 
 
+### Storage Mover エージェント の vhd取得
+
+1. VM内のブラウザを開く
+
+1. Storage Mover エージェント のダウンロードページを開き、 Hyper-V のイメージをダウンロード
+
+    - https://www.microsoft.com/en-us/download/details.aspx?id=104590
+
+1. 7zip をダウンロードおよびインストール
+
+    - https://7-zip.org/download.html  
+        └ `.exe` 形式, `64-bit Windows x64` インストーラーをダウンロードしてインストール
+
+> [!IMPORTANT]  
+> Hyper-V のイメージを解凍する際、 Windows 標準の解答機能だと正しく解凍できない場合があります。
+> 正しく解凍できない場合は、7zip などのサードパーティ製の解凍ツールを利用して解凍してください。
