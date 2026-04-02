@@ -14,6 +14,14 @@
             "defaultValue": "handson-client-vm",
             "type": "string"
         },
+        "VM_OnpreFileServer_Name": {
+            "defaultValue": "handson-onprefile-vm",
+            "type": "string"
+        },
+        "VM_FileSyncServer_Name": {
+            "defaultValue": "handson-filesync-vm",
+            "type": "string"
+        },
         "VM_AdminUsername": {
             "defaultValue": "azureuser",
             "type": "string"
@@ -23,9 +31,15 @@
         }
     },
     "variables": {
-      "VM_NIC_Name": "[concat(parameters('VM_Client_Name'), '-nic')]",
-      "VM_PublicIP_Name": "[concat(parameters('VM_Client_Name'), '-ip')]",
-      "VM_OsDisk_Name": "[concat(parameters('VM_Client_Name'), '-osdisk')]"
+      "VM_Client_NIC_Name": "[concat(parameters('VM_Client_Name'), '-nic')]",
+      "VM_Client_PublicIP_Name": "[concat(parameters('VM_Client_Name'), '-ip')]",
+      "VM_Client_OsDisk_Name": "[concat(parameters('VM_Client_Name'), '-osdisk')]",
+      "VM_OnpreFileServer_NIC_Name": "[concat(parameters('VM_OnpreFileServer_Name'), '-nic')]",
+      "VM_OnpreFileServer_PublicIP_Name": "[concat(parameters('VM_OnpreFileServer_Name'), '-ip')]",
+      "VM_OnpreFileServer_OsDisk_Name": "[concat(parameters('VM_OnpreFileServer_Name'), '-osdisk')]",
+      "VM_FileSyncServer_NIC_Name": "[concat(parameters('VM_FileSyncServer_Name'), '-nic')]",
+      "VM_FileSyncServer_PublicIP_Name": "[concat(parameters('VM_FileSyncServer_Name'), '-ip')]",
+      "VM_FileSyncServer_OsDisk_Name": "[concat(parameters('VM_FileSyncServer_Name'), '-osdisk')]"
     },
     "resources": [
         {
@@ -133,7 +147,7 @@
             "name": "[parameters('VM_Client_Name')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_NIC_Name'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_Client_NIC_Name'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -148,7 +162,7 @@
                     },
                     "osDisk": {
                         "osType": "Windows",
-                        "name": "[variables('VM_OsDisk_Name')]",
+                        "name": "[variables('VM_Client_OsDisk_Name')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
@@ -160,7 +174,7 @@
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "vm-handson-wins",
+                    "computerName": "onpre-client",
                     "adminUsername": "[parameters('VM_AdminUsername')]",
                     "adminPassword": "[parameters('VM_AdminPassword')]",
                     "windowsConfiguration": {
@@ -178,7 +192,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_NIC_Name'))]",
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_Client_NIC_Name'))]",
                             "properties": {
                                 "deleteOption": "Delete"
                             }
@@ -213,10 +227,10 @@
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2020-11-01",
-            "name": "[variables('VM_NIC_Name')]",
+            "name": "[variables('VM_Client_NIC_Name')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_PublicIP_Name'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_Client_PublicIP_Name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VNet_Onpremises_Name'), 'main-snet')]"
             ],
             "properties": {
@@ -227,7 +241,7 @@
                             "privateIPAddress": "10.1.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_PublicIP_Name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_Client_PublicIP_Name'))]"
                             },
                             "subnet": {
                                 "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VNet_Onpremises_Name'), 'main-snet')]"
@@ -247,7 +261,7 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2020-11-01",
-            "name": "[variables('VM_PublicIP_Name')]",
+            "name": "[variables('VM_Client_PublicIP_Name')]",
             "location": "[resourceGroup().location]",
             "sku": {
                 "name": "Standard",
@@ -255,6 +269,139 @@
             },
             "properties": {
                 "ipAddress": "40.115.209.84",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('VM_OnpreFileServer_Name')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_OnpreFileServer_NIC_Name'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2025-datacenter-g2",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[variables('VM_OnpreFileServer_OsDisk_Name')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "StandardSSD_LRS"
+                        },
+                        "deleteOption": "Delete",
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "onpre-file-srv",
+                    "adminUsername": "[parameters('VM_AdminUsername')]",
+                    "adminPassword": "[parameters('VM_AdminPassword')]",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true,
+                        "patchSettings": {
+                            "patchMode": "AutomaticByOS",
+                            "assessmentMode": "ImageDefault",
+                            "enableHotpatching": false
+                        }
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('VM_OnpreFileServer_NIC_Name'))]",
+                            "properties": {
+                                "deleteOption": "Delete"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "microsoft.devtestlab/schedules",
+            "apiVersion": "2018-09-15",
+            "name": "[concat('shutdown-computevm-', parameters('VM_OnpreFileServer_Name'))]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('VM_OnpreFileServer_Name'))]"
+            ],
+            "properties": {
+                "status": "Enabled",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "1900"
+                },
+                "timeZoneId": "UTC",
+                "notificationSettings": {
+                    "status": "Disabled",
+                    "timeInMinutes": 30,
+                    "notificationLocale": "ja"
+                },
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('VM_OnpreFileServer_Name'))]"
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2020-11-01",
+            "name": "[variables('VM_OnpreFileServer_NIC_Name')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_OnpreFileServer_PublicIP_Name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VNet_Onpremises_Name'), 'main-snet')]"
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.1.0.5",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('VM_OnpreFileServer_PublicIP_Name'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('VNet_Onpremises_Name'), 'main-snet')]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableAcceleratedNetworking": false,
+                "enableIPForwarding": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-11-01",
+            "name": "[variables('VM_OnpreFileServer_PublicIP_Name')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Standard",
+                "tier": "Regional"
+            },
+            "properties": {
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Static",
                 "idleTimeoutInMinutes": 4,
