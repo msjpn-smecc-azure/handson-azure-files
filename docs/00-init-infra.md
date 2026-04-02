@@ -8,10 +8,17 @@
 
 
 #### 🗒️ 目次
+    
+1. [前提環境について](#前提環境について)
+1. [ARMテンプレート を使って デプロイ](#armテンプレート-を使って-デプロイ)
+1. [ファイルサーバー の構成 (@On-premises File Server VM)](#ファイルサーバー-の構成-on-premises-file-server-vm)
+1. [Hyper-V の構成 (@On-premises File Server VM)](#hyper-v-の構成-on-premises-file-server-vm)
+1. [Storage Mover エージェント の vhd取得 (@On-premises File Server VM)](#storage-mover-エージェント-の-vhd取得-on-premises-file-server-vm)
 
-- [ARMテンプレート を使って デプロイ](#armテンプレート-を使って-デプロイ)
 
-## ARMテンプレート を使って デプロイ
+## 前提環境について
+
+![](../images/00-init-infra/001-architecture.png)
 
 - Client VM
     - Windows Server 2025 Datacenter
@@ -37,6 +44,20 @@
         - ファイルサーバー
         - File Sync Agent
     - Dドライブ など 追加ドライブ をつける(=File Sync の同期用ドライブ。OSドライブ以外が必要)
+
+
+## ARMテンプレート を使って デプロイ
+
+1. 以下のボタンをクリックして、ARMテンプレートを Azure にデプロイ
+
+    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-azure-files%2Frefs%2Fheads%2Fdevelop%2Finfra%2Fdeploy-resources.json)
+
+    (*) うまく開けない場合、以下のリンクを利用
+    https://raw.githubusercontent.com/msjpn-smecc-azure/handson-azure-files/refs/heads/develop/infra/deploy-resources.json
+
+    - サブスクリプション: (ハンズオン用のもの)
+    - リソースグループ: `handson-rg` (任意。複数人同時に実施する場合は識別しを入れる)
+    - リージョン: `Japan East`
 
 <!-- 
 ## ADDSの構成
@@ -124,7 +145,7 @@ ADDSの初期設定
     - Account is disabled: `チェックなし`
 -->
 
-## ファイルサーバー の構成
+## ファイルサーバー の構成 (@On-premises File Server VM)
 
 ### ファイルサーバー の役割を有効化
 
@@ -216,7 +237,7 @@ ADDSの初期設定
         内容確認して「Create」
 
 
-## Hyper-V の構成
+## Hyper-V の構成 (@On-premises File Server VM)
 
 ### Hyper-V, DHCP, DNS の役割を有効化
 
@@ -388,7 +409,9 @@ ADDSの初期設定
     - `168.63.129.16` (Azure DNS のIPアドレス)
 
 
-### Storage Mover エージェント の vhd取得
+## Storage Mover エージェント の vhd取得 (@On-premises File Server VM)
+
+VHDファイルはダウンロードに時間がかかるため、あらかじめ取得しておきます。
 
 1. VM内のブラウザを開く
 

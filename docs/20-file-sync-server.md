@@ -9,6 +9,17 @@
 
 #### 🗒️ 目次
 
+1. [File Sync Service のデプロイ](#file-sync-service-のデプロイ)
+1. [Private DNS を On-premise 相当の VNet へリンク](#private-dns-を-on-premise-相当の-vnet-へリンク)
+1. [マネージドID による アクセス制御 の有効化](#マネージドid-による-アクセス制御-の有効化)
+1. [File Sync サーバーに共有フォルダ を準備](#file-sync-サーバーに共有フォルダ-を準備)
+1. [File Sync サーバーに エージェント をインストール](#file-sync-サーバーに-エージェント-をインストール)
+1. [File Sync サーバーを Azure File Sync Service へ登録](#file-sync-サーバーを-azure-file-sync-service-へ登録)
+1. [同期グループの作成](#同期グループの作成)
+1. [エンドポイントを追加](#エンドポイントを追加)
+1. [File Sync Server の即時同期](#file-sync-server-の即時同期)
+1. [File Sync Server の 共有フォルダ 動作確認](#file-sync-server-の-共有フォルダ-動作確認)
+
 
 > [!NOTE]  
 > Azure File Sync サーバーのデプロイ手順の最新情報は以下を参照

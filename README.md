@@ -3,14 +3,24 @@
 
 ## 目的
 
-
+オンプレファイルサーバーから Azure Files への移行を想定し、Azure Files の構成や管理方法を学ぶことを目的とするハンズオンです。
 
 ## 目標
 
+このハンズオンでは以下の内容について学習します。
+
+- Azure Files の構成方法 および 利用方法
+- Azure File Sync を利用したオンプレファイルサーバーと Azure Files の同期構成方法
+- Storage Mover を利用したオンプレファイルサーバーから Azure Files へのファイル移行方法
 
 
 ## 対象
 
+以下のような方を対象として想定しています。
+
+- クラウド管理者​
+- クラウドアーキテクト​
+- ネットワークエンジニア​
 
 
 ## 前提条件
@@ -20,37 +30,10 @@
 - https://learn.microsoft.com/ja-jp/azure/architecture/example-scenario/hybrid/azure-files-on-premises-authentication
 
 
-
 ## ハンズオン 目次
 
------------------------
-環境準備
-1. ARM/Bicep 展開開始
-1. VM 接続確認
+1. [前提環境の構築](./docs/00-init-infra.md)
+2. [Azure Files の基礎](./docs/10-files-basic.md)
+3. [Azure File Sync Server の構築](./docs/20-file-sync-server.md)
+4. [Storage Mover を利用したファイル移行](./docs/30-storage-mover.md)
 
-ハンズオン
-1. Azure Files 作成
-1. Azure Files マウント・読み書き
-1. Azure File Sync の Storage Sync Service / Sync Group 作成
-1. Agent インストール / サーバー登録 / 初回同期開始
-1. 同期待ちの間に Share 分割演習
-1. Storage Mover 演習
-1. アクセス制御演習
-1. File Sync 結果確認
-1. Defender for Storage
-1. Backup / Immutable
-
------------------------
-1. ARM/Bicep 展開開始
-1. VM 接続確認
-1. AD DS 構築 & ドメイン参加
-
-1. Azure Files 作成
-1. Azure Files の AD DS 連携（IDベース認証）
-1. Azure Files マウント（ドメインユーザー）
-1. ACL 設定・動作確認 ← ★重要
-1. Azure File Sync 構築開始（同期開始）
-1. 同期待ち中に Share 分割
-1. Storage Mover
-1. File Sync 確認
-1. Defender / Backup
