@@ -115,13 +115,13 @@ File Sync Service へアクセスする仮想マシンのマネージドID を�
 
 1. [セキュリティ]-[ID] を開き、「システム割り当て」タブにある「状態」を「オン」にして「保存」
 
-
+<!-- 
 Storage Sync Service のマネージドIDによるアクセス制御を有効化します。
 
 1. Azure ポータルを開き、File Sync Service のリソースを開く
 
 1. [設定]-[マネージドID] を開き、「マネージドIDを有効にする」を選択
-
+-->
 
 
 ## File Sync サーバーに共有フォルダ を準備
@@ -366,8 +366,26 @@ Azure PowerShell のインストール
 
         (*) `CLOUD_ENDPOINT_NAME`: 同期グループにあるクラウドエンドポイントを開き、リソースIDに含まれる `.../cloudEndpoints/<CLOUD_ENDPOINT_GUID>` に続く GUID を指定
 
+同期が完了したこと Azureポータル および VM内の実ファイル を確認します。
 
-## File Sync Server の 共有フォルダ 動作確認
+【Azureポータルでの確認】
+
+1. Azureポータルを開き、File Sync Service のリソースを開く
+
+1. [同期]-[同期グループ] を開き、作成した同期グループを選択
+
+1. 作成したサーバーエンドポイントが「正常」になっていることを確認
+
+【VM内での確認】
+
+1. Azureポータルを開き、File Sync VM を開く
+
+1. 仮想マシンへBastion経由で接続
+
+1. `D:\share` を開き、クラウドエンドポイントにあるファイルが同期されていることを確認
+
+
+## (オプション) File Sync Server の 共有フォルダ 動作確認
 
 1. Azureポータルを開き、Client の VMリソース (`handson-client-vm`) を開く
 

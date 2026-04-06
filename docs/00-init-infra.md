@@ -2,9 +2,11 @@
 
 #### ⏳ 推定時間
 
-- 分
+- 60~90分
 
 #### 💡 学習概要
+
+オンプレ相当の環境をAzure上に疑似的に構築します。
 
 
 #### 🗒️ 目次
@@ -52,11 +54,11 @@
 
     [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmsjpn-smecc-azure%2Fhandson-azure-files%2Frefs%2Fheads%2Fdevelop%2Finfra%2Fdeploy-resources.json)
 
-    (*) うまく開けない場合、以下のリンクを利用
+    (*) うまく開けない場合、以下のリンクを利用  
     https://raw.githubusercontent.com/msjpn-smecc-azure/handson-azure-files/refs/heads/develop/infra/deploy-resources.json
 
     - サブスクリプション: (ハンズオン用のもの)
-    - リソースグループ: `handson-rg` (任意。複数人同時に実施する場合は識別しを入れる)
+    - リソースグループ: `handson-rg` (任意。複数人同時に実施する場合は識別子を入れる)
     - リージョン: `Japan East`
 
 <!-- 
@@ -147,6 +149,20 @@ ADDSの初期設定
 
 ## ファイルサーバー の構成 (@On-premises File Server VM)
 
+### ファイルサーバーへ 接続
+
+1. Azure ポータルを開き、作成した仮想マシン `handson-onpfile-vm` を選択
+
+1. [接続]-[Bastion] を開き、以下の情報を入力して「接続」
+
+    - ユーザー名: `azureuser` (ARMテンプレート デプロイ時に指定したユーザー名)
+    - パスワード: (ARMテンプレート デプロイ時に指定したパスワード)
+
+> [!IMPORTANT]  
+> 初回接続時、ブラウザのプロンプトでクリップボードの共有に関する警告が出る場合があります。
+> もし警告が出た場合、「許可」を選択してください。
+
+
 ### ファイルサーバー の役割を有効化
 
 1. Server Manager を開き、右上 [Manage]-[Add Roles and Features] を開く
@@ -176,8 +192,8 @@ ADDSの初期設定
 
     例：
     ```
-    D:\share
-        └─ sample_from_onpre.txt
+    C:\share
+        └─ sample_onpre.txt
     ```
 
 1. Server Manager を開き、左メニュー [File and Storage Services]-[Shares] を開く
@@ -376,9 +392,11 @@ ADDSの初期設定
 
     1. Domain Name and DNS Servers
 
-         Azure DNS のIPアドレス が入っていることを確認して「Next」
+         Azure DNS の IPアドレス(`168.63.129.16`) は削除し、次のアドレスを追加して、「Next」を選択
 
         - IP address: `172.16.0.1` (Internal Switch に設定したIPアドレス)
+
+        DNSのエラーが出る場合がありますが、後から構成するので無視して「OK」
 
     1. WINS Servers
 
@@ -404,7 +422,7 @@ ADDSの初期設定
     - `Only the following IP addresses` を選択
         - `172.16.0.1` (Internal Switch に設定したIPアドレス) のみ選択して、他のIPアドレスは選択解除
 
-1. [Forwarders] タブを開き、以下のIPアドレスを追加して「OK」
+1. [Forwarders] タブを開き、「Edit」を開いて、以下のIPアドレスを追加して「OK」
 
     - `168.63.129.16` (Azure DNS のIPアドレス)
 
