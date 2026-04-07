@@ -1,0 +1,94 @@
+<mxfile host="65bd71144e">
+    <diagram id="gDuAnS8VIfext38Bfo3A" name="ページ1">
+        <mxGraphModel dx="1026" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="240" width="360" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;" parent="1" vertex="1">
+                    <mxGeometry x="162.22" y="290" width="43.13" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="240" width="240" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;" parent="1" vertex="1">
+                    <mxGeometry x="382.22" y="290" width="43.13" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="File Sync Server&lt;div&gt;VM&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="353.785" y="330" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/storage/Storage_Accounts_Classic.svg;" parent="1" vertex="1">
+                    <mxGeometry x="676.25" y="290" width="37.5" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Azure FIles" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="655" y="330" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=4;rotation=90;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="270" width="10" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="on-premise 想定" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="120" y="210" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Azure 想定" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="210" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/Bastions.svg;" parent="1" vertex="1">
+                    <mxGeometry x="165.35" y="400" width="34.12" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Bastion" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="159.47" y="440" width="45.88" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="onpremise-vnet" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="379.29" y="490" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="files-vnet" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="696.75" y="490" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="1" vertex="1">
+                    <mxGeometry x="343.85" y="490" width="33.5" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/networking/Virtual_Networks.svg;" parent="1" vertex="1">
+                    <mxGeometry x="660" y="490" width="33.5" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="10.1.0.0/16" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="389.29" y="520" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="10.2.0.0/16" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="666.75" y="520" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Client 想定&lt;div&gt;VM&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="133.785" y="330" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Virtual_Machine.svg;" parent="1" vertex="1">
+                    <mxGeometry x="272.22" y="290" width="43.13" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="旧 FileServer 想定&lt;div&gt;VM&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="243.785" y="330" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/storage/Storage_Sync_Services.svg;" parent="1" vertex="1">
+                    <mxGeometry x="565" y="290" width="36" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="FIle Sync Service" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="545" y="330" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Disks.svg;" parent="1" vertex="1">
+                    <mxGeometry x="413.22" y="280" width="20.36" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="共有用&lt;div&gt;追加ディスク&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="382.22" y="250" width="84" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="(onpre-file-srv)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="243.785" y="360" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="(onpre-client)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="133.785" y="360" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="(filesync-srv)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="353.785" y="360" width="100" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
